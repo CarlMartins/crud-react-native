@@ -9,12 +9,12 @@ const Stack = createStackNavigator();
 
 const screenOptions = {
   headerStyle: {
-    backgroundColor: '#f4511e'
+    backgroundColor: '#f4511e',
   },
   headerTintColor: '#fff',
   headerTitleStyle: {
-    fontWeight: 'bold'
-  }
+    fontWeight: 'bold',
+  },
 };
 
 const App = () => {
@@ -29,7 +29,7 @@ const App = () => {
           component={ UserList }
           options={ ({ navigation }) => {
             return {
-              title: "Lista de usuários",
+              title: 'Lista de usuários',
               headerRight: () => (
                 <Button
                   onPress={ () => {
@@ -42,7 +42,7 @@ const App = () => {
                     color="#fff"
                   /> }
                 />
-              )
+              ),
             };
           } }
         />
@@ -50,7 +50,7 @@ const App = () => {
           name="UserForm"
           component={ UserForm }
           options={ {
-            title: "Formulário de usuários"
+            title: 'Formulário de usuários',
           } }
         />
       </Stack.Navigator>
@@ -59,5 +59,5 @@ const App = () => {
 };
 
 export {
-  App
+  App,
 };
