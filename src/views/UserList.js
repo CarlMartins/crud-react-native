@@ -1,23 +1,27 @@
-import React from 'react';
-import { View, Text, FlatList, StyleSheet, Alert } from 'react-native';
+import React, { useContext } from 'react';
+import { View, FlatList, StyleSheet, Alert } from 'react-native';
 import { Button, ListItem } from 'react-native-elements';
 import { Avatar } from 'react-native-elements/dist/avatar/Avatar';
 import { Icon } from 'react-native-elements/dist/icons/Icon';
-
-import users from '../data/users';
+import { UsersContext } from '../context/UsersContext';
 
 const UserList = (props) => {
+  const { state, dispatch } = useContext(UsersContext);
+
   const confirmUserDeletion = (user) => {
     Alert.alert('Excluir Usuário', 'Deseja excluir o usuário?', [
       {
         text: 'Sim',
         onPress() {
-          console.warn(`Deletado ${user.name}`);
-        }
+          dispatch({
+            type: 'deleteUser',
+            payload: user
+          });
+        },
       },
       {
-        text: 'Não'
-      }
+        text: 'Não',
+      },
     ]);
   };
 
@@ -74,7 +78,7 @@ const UserList = (props) => {
   return (
     <View>
       <FlatList
-        data={ users }
+        data={ state.users }
         keyExtractor={ user => user.id.toString() }
         renderItem={ getUserItem }
       />
@@ -84,8 +88,10 @@ const UserList = (props) => {
 
 const styles = StyleSheet.create({
   userIcons: {
-    flexDirection: 'row'
-  }
+    flexDirection: 'row',
+  },
 });
 
-export { UserList };
+export {
+  UserList,
+};

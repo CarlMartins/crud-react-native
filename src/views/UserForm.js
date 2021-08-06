@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Button, StyleSheet, Text, View } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
+import { UsersContext } from '../context/UsersContext';
 
 const UserForm = ({ route, navigation }) => {
   const [user, setUser] = useState(route.params ? route.params : {});
+  const { dispatch } = useContext(UsersContext);
+
   return (
     <View style={ styles.form }>
       <Text>Nome</Text>
@@ -30,6 +33,10 @@ const UserForm = ({ route, navigation }) => {
       <Button
         title="Salvar"
         onPress={ () => {
+          dispatch({
+            type: user.id ? 'updateUser' : 'createUser',
+            payload: user
+          });
           navigation.goBack();
         } }
       />
@@ -39,7 +46,7 @@ const UserForm = ({ route, navigation }) => {
 
 const styles = StyleSheet.create({
   form: {
-    padding: 12
+    padding: 12,
   },
   input: {
     height: 40,
